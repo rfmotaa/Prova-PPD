@@ -39,3 +39,41 @@ Os filosofos conseguiram comer normalmente após a implementação da classe mon
 ![alt text](docs/tarefa4.png)
 
 Para rodar, basta compilar o pacote e rodar a Main.java.
+
+## Tarefa 5
+
+Presente no arquivo `RELATORIO.md`
+
+## Estrutura de arquivos do projeto
+
+```bash
+.
+├── docs
+│   ├── relatorio
+│   │   ├── tarefa2.png
+│   │   ├── tarefa3.png
+│   │   └── tarefa4.png
+│   ├── tarefa1.png
+│   ├── tarefa2.png
+│   ├── tarefa3.png
+│   └── tarefa4.png
+├── README.md
+├── RELATORIO.md
+└── src
+    ├── tarefa1
+    │   ├── Filosofo.java
+    │   ├── Garfo.java
+    │   └── Main.java
+    ├── tarefa2
+    │   ├── Filosofo.java
+    │   ├── Garfo.java
+    │   └── Main.java
+    ├── tarefa3
+    │   ├── Filosofo.java
+    │   ├── Garfo.java
+    │   └── Main.java
+    └── tarefa4
+        ├── Filosofo.java
+        ├── Main.java
+        └── Mesa.java
+```

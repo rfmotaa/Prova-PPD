@@ -19,7 +19,6 @@ public class Mesa {
     private int direito(int i) { return (i + 1) % N; }
 
     private boolean podeComer(int i) {
-        // só pode comer se estiver faminto e nenhum dos vizinhos comendo
         return estado[i] == Estado.FAMINTO && 
                estado[esquerdo(i)] != Estado.COMENDO && 
                estado[direito(i)] != Estado.COMENDO;

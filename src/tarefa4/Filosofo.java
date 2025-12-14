@@ -7,6 +7,13 @@ public class Filosofo implements Runnable {
     private final Mesa mesa;
     private int refeicoes = 0;
 
+    private long inicioEsperaNano = 0;
+    private long totalTempoEsperaNano = 0;
+    private int tentativasComer = 0;
+    
+    private long inicioComerNano = 0;
+    private long totalTempoComendoNano = 0;
+
     private final Random random = new Random();
 
     public Filosofo(int id, Mesa mesa) {
@@ -29,13 +36,19 @@ public class Filosofo implements Runnable {
         while (true) {
             try {
                 simularTempo("Começa a pensar"); 
+                inicioEsperaNano = System.nanoTime();
+                tentativasComer++;
                 
-                // o filoso nao precisa mais de objetos garfos individuais
-                // ele só precisa notificar e utilizar o método da mesa (classe monitora)
                 mesa.pegarGarfos(id);
+                long tempoEsperaAtual = System.nanoTime() - inicioEsperaNano;
+                totalTempoEsperaNano += tempoEsperaAtual;
+
+                inicioComerNano = System.nanoTime();
 
                 simularTempo("Está comendo");
                 this.refeicoes++;
+
+                totalTempoComendoNano += (System.nanoTime() - inicioComerNano);
 
                 mesa.soltarGarfos(id);
                 
@@ -48,5 +61,14 @@ public class Filosofo implements Runnable {
 
     public int getRefeicoes() {
         return this.refeicoes;
+    }
+    
+    public double getTempoMedioEsperaMs() {
+        if (tentativasComer == 0) return 0.0;
+        return (totalTempoEsperaNano / (double) tentativasComer) / 1_000_000.0;
+    }
+    
+    public long getTempoTotalComendoNano() {
+        return totalTempoComendoNano;
     }
 }

@@ -10,6 +10,10 @@ public class Filosofo implements Runnable {
     private final Semaphore limiteAcesso;
     private int refeicoes = 0;
 
+    private long inicioEsperaNano = 0;
+    private long totalTempoEsperaNano = 0;
+    private int tentativasComer = 0;
+
     private final Random random = new Random();
 
     public Filosofo(int id, Garfo garfoEsquerdo, Garfo garfoDireito, Semaphore limiteAcesso) {
@@ -35,7 +39,9 @@ public class Filosofo implements Runnable {
             try {
                 simularTempo("Começa a pensar"); 
                 
-                // o filosofo precisa adquirir a permissão para sentar
+                inicioEsperaNano = System.nanoTime();
+                tentativasComer++;
+
                 printar("Tenta adquirir permissão para sentar à mesa (Semáforo)");
                 limiteAcesso.acquire();
                 printar("Adquiriu permissão. Tentando pegar garfos...");
@@ -43,20 +49,28 @@ public class Filosofo implements Runnable {
 
                 printar(String.format("Tenta pegar o Garfo Esquerdo (%d)", garfoEsquerdo.getId()));
                 synchronized (garfoEsquerdo) {
-
+                    garfoEsquerdo.registrarInicioUso(); 
                     printar(String.format("Pegou Garfo Esquerdo (%d)", garfoEsquerdo.getId()));
 
-                    Thread.sleep(1000); 
+                    Thread.sleep(10); 
 
                     printar(String.format("Tenta pegar o Garfo Direito (%d)", garfoDireito.getId()));
                     synchronized (garfoDireito) {
+                        garfoDireito.registrarInicioUso(); 
                         
+                        long tempoEsperaAtual = System.nanoTime() - inicioEsperaNano;
+                        totalTempoEsperaNano += tempoEsperaAtual;
+                        
+                        // 3. COMER
                         printar("Conseguiu pegar ambos os garfos e COMEÇA A COMER"); 
                         simularTempo("Está comendo"); 
                         this.refeicoes++;
+                        
+                        garfoDireito.registrarFimUso();
                     } 
+                    garfoEsquerdo.registrarFimUso();
                 } 
-                // Quando os blocos syncronized terminam, os recursos (garfos) são liberados automatiamente
+                
                 printar("Terminou de comer e solta ambos os garfos");  
                 limiteAcesso.release(); 
 
@@ -69,5 +83,10 @@ public class Filosofo implements Runnable {
 
     public int getRefeicoes() {
         return this.refeicoes;
+    }
+    
+    public double getTempoMedioEsperaMs() {
+        if (tentativasComer == 0) return 0.0;
+        return (totalTempoEsperaNano / (double) tentativasComer) / 1_000_000.0;
     }
 }
