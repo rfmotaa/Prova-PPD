@@ -29,3 +29,13 @@ Filosofos conseguiram comer por um tempo de 2 minutos depois da implementação 
 > Estatísticas foram marcadas no terminal
 
 Para rodar, basta compilar o pacote e rodar a Main.java.
+
+## Tarefa 4
+
+Foi criada a classe monitora `Mesa`, a classe `Garfo``não é mais utilizada.
+
+Os filosofos conseguiram comer normalmente após a implementação da classe monitora.
+
+![alt text](docs/tarefa4.png)
+
+Para rodar, basta compilar o pacote e rodar a Main.java.
