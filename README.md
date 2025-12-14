@@ -20,3 +20,12 @@ Filosofos conseguiram comer por um tempo de 2 minutos.
 > Estatísticas foram marcadas no terminal
 
 Para rodar, basta compilar o pacote e rodar a Main.java.
+
+## Tarefa 3
+
+Filosofos conseguiram comer por um tempo de 2 minutos depois da implementação de semáforo.
+
+![alt text](docs/tarefa3.png)
+> Estatísticas foram marcadas no terminal
+
+Para rodar, basta compilar o pacote e rodar a Main.java.
